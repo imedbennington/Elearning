@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="Styles.css" />
+    <link rel="stylesheet" type="text/css" href="/Projects/Elearning/css/Styles.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <title>login</title>
@@ -27,15 +28,15 @@
                 class="img-fluid" alt="Phone image">
             </div>
             <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
-              <form action="connect.php" method="post">
+              <form action="../php/connect2.php" method="post">
                 <div class="form-outline mb-4">
                   <label class="form-label" for="form1Example13" style="font-size: large;">Email address</label>
-                  <input type="email" id="form1Example13" class="form-control form-control-lg" style="border: 2px solid black"/>
+                  <input type="email" name = "email" id="form1Example13" class="form-control form-control-lg" style="border: 2px solid black"/>
                   
                 </div>
                 <div class="form-outline mb-4">
                   <label class="form-label" for="form1Example23" style="font-size: large;">Password</label>
-                  <input type="password" id="form1Example23" class="form-control form-control-lg" style="border: 2px solid black"/>
+                  <input type="password" name = "password" id="form1Example23" class="form-control form-control-lg" style="border: 2px solid black"/>
                   
                 </div>
       
@@ -51,14 +52,12 @@
                 </div>
                 
                 <div>
-                    <button type="button" onclick="window.location.href='user_profile.html'" class="btn btn-primary btn-lg btn-block" style="width: 100%; margin: 10px;">Sign in</button>
+                    <button type="submit"  class="btn btn-primary btn-lg btn-block" style="width: 100%; margin: 10px;">Sign in</button>
                     <button type="button" onclick="window.location.href='registration.php'" class="btn btn-primary btn-lg btn-block" style="width: 100%; margin: 10px;">
                       Create account
                   </button>
                          <a href="registration.php"> create account </a>            
                 </div>
-                
-      
                 <div class="divider d-flex align-items-center my-4">
                   <p class="text-center fw-bold mx-3 mb-0 text-muted">OR continue with </p>
                 </div>
@@ -69,8 +68,6 @@
                           <a href="#"><i class="fa-brands fa-google"></i></a>
                           
                       </div>
-                
-      
               </form>
             </div>
           </div>
