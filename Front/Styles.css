@@ -1,0 +1,222 @@
+body{ 
+  background-color: rgba(238,238,255,255);
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+header {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    justify-content: space-between;
+    background-color: black;
+    width: 100%;
+    height: 60px;
+  }
+  .logo img {
+    width: 50px;
+    height: 50px;
+    margin: 20px;
+  }
+  .navbar a {
+    float: left;
+    text-align: center;
+    padding: 12px;
+    color: white;
+    text-decoration: none;
+    font-size: 17px;
+  }
+  .navbar a:hover {
+    background-color: #ea0404;
+  }
+.main{
+    display: flex;
+    justify-content: space-between;
+}
+.main_img{
+  float: right;
+  margin-right: 20px;
+}
+.slogan{
+  margin-left: 30px;
+  font-size: xx-large;
+}
+.side_img{
+  /*max-width: 100%;*/
+  width: 300px;
+}
+.section1 {
+  background-color: #f0f0f0; 
+  display: flex;
+  justify-content: space-between;
+}
+.error-message {
+  color: red;
+  font-size: 14px;
+}
+.form {
+  width: 100%;
+  margin: 50px;
+  margin-right: 50px;
+  padding: 20px;
+  border: 10px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  background-color: #fff;
+  display: flex;
+  justify-content: space-between;
+}
+fieldset {
+  border: none;
+  padding: 50px;
+  margin-left: 50px;
+}
+fieldset legend{
+  font-size: xx-large;
+}
+table {
+  width: 100%;
+}
+select, input, textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Additional styling */
+fieldset {
+  text-align: left;
+}
+.aside{
+  float: right;
+  margin: 20px;
+  padding: 20px;
+  width: 500px;
+
+}
+.login{
+      width: 50%;
+      padding: 20px;
+      background-color: #f0f0f0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      position: relative;
+            top: 200px;
+            left: 50px;
+}
+
+.form .btn{
+  height: 40px;
+  width: 300px;
+  border-radius: 20px;
+  background-color: rgba(61, 67, 233, 0.68);
+  font-size:large;
+  margin: 20px;
+}
+button{
+  height: 40px;
+  width: 500px;
+  border-radius: 20px;
+  background-color: rgba(105, 162, 242, 0.973);
+  font-size:large;
+}
+
+.button-container{
+  margin: 20px;
+}
+footer {
+  margin-bottom: 0;
+  background-color:#fffefe;
+  color: black;
+  padding: 20px;
+  text-align: center;
+  height: 40px;
+  font-size: large;
+}
+  .main_img{
+    position: relative;
+  }
+  .main_img {
+    width: 100%; 
+    height: auto; 
+    display: block;
+    padding-left: 10px;
+    float: right;
+  }
+
+  .right_side{
+    display: flex;
+    float: right;
+    padding: 20px;
+  }
+  .social-icons {
+    list-style: none;
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.social-icons a {
+    margin-right: 10px;
+}
+
+.social-icons a {
+    text-decoration: none;
+    color: #333;
+    font-size: 24px;
+}
+/*schedule*/
+header {
+  background-color: #343a40;
+  color: #ffffff;
+  padding: 10px;
+  text-align: center;
+}
+
+section {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.schedule-container {
+  width: 80%;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.day {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.event {
+  border: 1px solid #dee2e6;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+}
+
+.time {
+  font-size: 18px;
+  color: #007bff;
+}
+
+.description {
+  margin-top: 5px;
+}
+  @media only screen and (max-width: 600px) {
+    .form {
+      width: 80%;
+    }
+  }
