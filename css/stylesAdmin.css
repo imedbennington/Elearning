@@ -1,0 +1,44 @@
+body{
+    margin: 0;
+}
+nav{
+    display: flex;
+    justify-content: flex-end;
+    margin: auto;
+}
+nav ul{
+    margin: 10px;
+    padding: 10px;
+}
+nav ul li{
+    display: inline-block;
+}
+nav ul li a{
+    text-decoration: none;
+    color: white;
+    font-style: bold;
+}
+a:hover{
+    color: red;
+    transform: scale(1.5s);
+}
+.form-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.trans-form{
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.5); 
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
+    border-radius: 2px;
+}
+.trans-form label{
+    color: white;
+}
+.trans-form label{
+    display: block;
+}

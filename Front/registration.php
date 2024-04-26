@@ -80,7 +80,7 @@
                   <!-- Email input -->
                   <div class="form-outline mb-4">
                     <label class="form-label" for="form3Example3">Email address</label>
-                    <input type="email" id="form3Example3" class="form-control" name="email" style="border: 2px solid black"/>
+                    <input type="email" id="form3Example3" class="form-control" name="email" onblur="validating()" style="border: 2px solid black"/>
                   </div>
   
                   <!-- Password input -->
@@ -120,6 +120,7 @@
     </div>
     <!-- Jumbotron -->
   </section>
+  <!--<button onclick="validating()">Validate Email</button>-->
   <!-- Section: Design Block -->
 </body>
 <script src="/Projects/Elearning/js/index.js"></script>

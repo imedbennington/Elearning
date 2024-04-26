@@ -30,8 +30,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Return response
     if ($emailExists) {
         echo "Email already exists in the database.";
+        return true;
     } else {
         echo "Email does not exist in the database.";
+        return false;
     }
 }
 ?>
