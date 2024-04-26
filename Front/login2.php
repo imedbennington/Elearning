@@ -43,12 +43,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 // Print data retrieved from the database if available
-if ($user) {
+/*if ($user) {
     echo "User Data:<br>";
     foreach ($user as $key => $value) {
         echo $key . ": " . $value . "<br>";
     }
-}
+}*/
 
 // Close database connection
 $conn = null;

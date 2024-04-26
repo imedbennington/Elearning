@@ -1,9 +1,4 @@
-<?php
-include('../php/db_functions.php');
-if (isset($message) && isset($messageType)) {
-  echo '<div class="alert alert-' . $messageType . '">' . $message . '</div>';
-}
-?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,7 +37,29 @@ if (isset($message) && isset($messageType)) {
           <div class="col-lg-6 mb-5 mb-lg-0">
             <div class="card">
               <div class="card-body py-5 px-md-5">
-                
+                <!--Display messages if they exist-->
+                <div class="error-message">
+                <?php
+// Start the session if not started
+                    if (!session_id()) {
+                        session_start();
+                    }
+
+                    // Check if email error flag is set to true
+                    if (isset($_SESSION['email_error']) && $_SESSION['email_error'] === true) {
+                        // Display the error message
+                        if (isset($_SESSION['message_user']) && !empty($_SESSION['message_user'])) {
+                            echo $_SESSION['message_user'];
+                        } else {
+                            echo "An error occurred.";
+                        }
+                        // Clear the session message and error flag
+                        unset($_SESSION['message_user']);
+                        unset($_SESSION['email_error']);
+                    }
+                    ?>
+                </div>
+                <!-- Display registration message if set -->
                 <form id="registrationForm" action="../php/register.php" method="post">
                   <!-- 2 column grid layout with text inputs for the first and last names -->
                   <div class="row">
@@ -50,14 +67,12 @@ if (isset($message) && isset($messageType)) {
                       <div class="form-outline">
                          <label class="form-label" for="form3Example1">First name</label>
                          <input type="text" id="form3Example1" class="form-control" name ="name" style="border: 2px solid black"/>
-                        
                       </div>
                     </div>
                     <div class="col-md-6 mb-4">
                       <div class="form-outline">
                         <label class="form-label" for="form3Example2">Last name</label>
                         <input type="text" id="form3Example2" class="form-control" name="surname" style="border: 2px solid black"/>
-                        
                       </div>
                     </div>
                   </div>
@@ -66,7 +81,6 @@ if (isset($message) && isset($messageType)) {
                   <div class="form-outline mb-4">
                     <label class="form-label" for="form3Example3">Email address</label>
                     <input type="email" id="form3Example3" class="form-control" name="email" style="border: 2px solid black"/>
-                    
                   </div>
   
                   <!-- Password input -->
@@ -78,7 +92,6 @@ if (isset($message) && isset($messageType)) {
                   <div class="form-outline mb-4">
                     <label class="form-label" for="form3Example4">Confirm password</label> 
                     <input type="password" id="confirmpass" name = "confirmpass" class="form-control" onblur="checkPassword()" style="border: 2px solid black"/>
-  
                   </div>
                   
                   <p id="error-message" class="error-message"></p>
@@ -88,18 +101,17 @@ if (isset($message) && isset($messageType)) {
                     Sign up
                   </button>
                 </form>
-                  <div class="right_side">
-                    <div>
-                      <h2>Register with social media</h2>
-                      <div class="social-icons">
-                          <a href="#"><i class="fab fa-facebook"></i></a>
-                          <a href="#"><i class="fab fa-twitter"></i></a>
-                          <a href="#"><i class="fab fa-instagram"></i></a>
-                          <a href="#"><i class="fa-brands fa-google"></i></a>
-                          
-                      </div>
+                <div class="right_side">
+                  <div>
+                    <h2>Register with social media</h2>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fa-brands fa-google"></i></a>
+                    </div>
                   </div>                  
-                </form>
+                </div>
               </div>
             </div>
           </div>

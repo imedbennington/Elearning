@@ -1,4 +1,10 @@
 <?php
+session_start(); // Start the session
+
+include_once('db_functions.php');
+include_once('check_mail.php');
+$conn = db_connect();
+
 // Check if the form was submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Validate and sanitize input data
@@ -10,51 +16,40 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Validate if all required fields are filled
     if (!empty($name) && !empty($surname) && !empty($email) && !empty($password) && !empty($confirmpass)) {
-        // Check if passwords match
-        if ($password == $confirmpass) {
-            // Hash the password for security
-            $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+            // Check if the email already exists in the database
+            if (!checkEmailExists($conn, $email)) {
+                // Hash the password for security
+                $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+                // Prepare and execute SQL statement to insert user data into the database
+                $stmt = $conn->prepare("INSERT INTO users (name, surname, email, password) VALUES (:name, :surname, :email, :password)");
+                
+                $stmt->bindParam(':name', $name);
+                $stmt->bindParam(':surname', $surname);
+                $stmt->bindParam(':email', $email);
+                $stmt->bindParam(':password', $hashed_password);
+                $stmt->execute();
 
-            // Connect to your database
-            $conn = db_connect(); 
-            // Prepare and execute SQL statement to insert user data into the database
-            $stmt = $conn->prepare("INSERT INTO users (name, surname, email, password) VALUES (:name, :surname, :email, :password)");
-            $stmt->bindParam(':name', $name);
-            $stmt->bindParam(':surname', $surname);
-            $stmt->bindParam(':email', $email);
-            $stmt->bindParam(':password', $hashed_password);
-            $stmt->execute();
-
-            // Registration successful
-            $message = "Registration successful!";
-            $messageType = "success";
-            header("Location: ../Front/user_profile.php");
-        } else {
-            // Passwords don't match
-            $message = "Passwords do not match!";
-            $messageType = "danger";
-        }
+                // Registration successful
+                $_SESSION['message_user'] = "Registration successful!";
+                $_SESSION['messageType'] = "success";
+                header("Location: ../Front/user_profile.php");
+                exit();
+                
+            } else {
+                // Email already exists
+                $_SESSION['message_user'] = "Email already exists!";
+                $_SESSION['email_error'] = true; 
+                header("Location: ../Front/registration.php");
+                // Signal JavaScript que l'e-mail existe déjà
+                exit();
+            }
     } else {
         // Required fields are not filled
-        $message = "Please fill in all fields!";
-        $messageType = "warning";
+        $_SESSION['message_user'] = "Please fill in all fields!";
+        //$_SESSION['messageType'] = "warning";
     }
 }
 
-// Function to establish database connection
-function db_connect() {
-    $server_name = "localhost";
-    $user_name ="root";
-    $password = "";
-    $database = "elearning";
-
-    try {
-        $conn = new PDO("mysql:host=$server_name;dbname=$database", $user_name, $password);
-        // Set the PDO error mode to exception
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        return $conn;
-    } catch (PDOException $e) {
-        echo "Connection failed: " . $e->getMessage();
-    }
-}
+// Redirect to the registration page if there's no POST data
+exit();
 ?>

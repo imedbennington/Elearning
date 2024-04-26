@@ -1,3 +1,53 @@
+<?php
+// Start session
+session_start();
+
+// Include database connection
+include '../php/db_functions.php'; // Replace 'database_connection.php' with your actual database connection file
+$conn = db_connect();
+// Initialize $user variable
+$user = null;
+
+// Check if the form is submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Initialize variables
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    
+    try {
+        // Prepare SQL statement
+        $sql = "SELECT * FROM users WHERE email = :email AND password = :password";
+        $stmt = $conn->prepare($sql);
+        
+        // Bind parameters
+        $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+        $stmt->bindParam(':password', $password, PDO::PARAM_STR);
+        
+        // Execute statement
+        $stmt->execute();
+        
+        // Fetch user
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        // Check if user exists
+        if ($user) {
+            // User authenticated, redirect to user_profile.php
+            $_SESSION['email'] = $email;
+            header("Location: user_profile.php");
+            exit();
+        } else {
+            // User not found, display error message
+            $error_message = "Invalid email or password";
+        }
+    } catch (PDOException $e) {
+        // Error executing query, display error message
+        $error_message = "Error: " . $e->getMessage();
+    }
+}
+
+// Close database connection
+$conn = null;
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -28,7 +78,13 @@
                 class="img-fluid" alt="Phone image">
             </div>
             <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
-              <form action="../php/connect2.php" method="post">
+              <div class="error-message">
+                <?php if (isset($error_message)) : ?>
+                  <p><?php echo $error_message; ?></p>
+                <?php endif; ?>
+              </div>
+            
+              <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                 <div class="form-outline mb-4">
                   <label class="form-label" for="form1Example13" style="font-size: large;">Email address</label>
                   <input type="email" name = "email" id="form1Example13" class="form-control form-control-lg" style="border: 2px solid black"/>

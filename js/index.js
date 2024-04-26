@@ -9,11 +9,17 @@ function checkPassword() {
       document.getElementById("password").style.borderColor = "red";
       document.getElementById("confirmpass").style.borderColor = "red";
       submitBtn.disabled = true;
+      console.log("error");
       return false;
     }
     else {
-      alert("Passwords match!");
-      // You can proceed with further actions here, like form submission
+      submitBtn.disabled = false;
+      console.log("fine");
       return true;
     }
   }
+
+
+  /////////
+
+  
