@@ -21,45 +21,25 @@ function checkPassword() {
 
 
   /////////
-  /*
-  document.getElementById('form3Example3').addEventListener('blur', validating);
-
-  function isValidEmail(email) {
-    // Regular expression for validating email addresses
-    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-}
-
-function validating() {
-    var email = document.getElementById('email').value;
-    if (isValidEmail(email)) {
-        console.log("Valid email address.");
-        alert ("Valid email address.");
-    } else {
-        console.log("Invalid email address.");
-        alert ("Valid email address.");
-    }
-}
-*/
 function isValidEmail(email, domains) {
-  // Regular expression for validating email addresses
   var domainRegex = domains.map(domain => domain.replace(/\./g, "\\.")).join("|");
   var emailRegex = new RegExp("^[a-zA-Z0-9._%+-]+@(" + domainRegex + ")$");
+  console.log("Email: ", email);
+  console.log("Regex: ", emailRegex);
   return emailRegex.test(email);
 }
-
 
 function validating() {
   var emailInput = document.getElementById('form3Example3');
   var email = emailInput.value;
-  var domains = ["gmail.com", "yahoo.com"]; // Add your desired domains here
-if (isValidEmail(email, domains)) {
-    console.log("Valid email address.");
-    alert("Valid email address.");
-} else {
+  var domains = ["gmail.com", "yahoo.com"];
+  if (isValidEmail(email, domains)) {
+    //console.log("Valid email address.");
+    //alert("Valid email address.");
+  } else {
     console.log("Invalid email address.");
     alert("Invalid email address.");
-}
+  }
 }
 
 
