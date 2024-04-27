@@ -1,0 +1,41 @@
+/* styles.css */
+
+/* Style the table */
+.user-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+/* Style table header */
+.user-table th {
+    background-color: #f2f2f2;
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+/* Style table rows */
+.user-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+/* Style alternate row background */
+.user-table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* Style delete button */
+.user-table button {
+    padding: 5px 10px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+/* Style delete button on hover */
+.user-table button:hover {
+    background-color: #c82333;
+}

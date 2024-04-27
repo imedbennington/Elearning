@@ -5,6 +5,18 @@ document.addEventListener('DOMContentLoaded', function() {
     // Fetch courses from the server and populate course grid
     fetchCourses();
 });
+function linkCSS() {
+    // Create a link element
+    var link = document.createElement('link');
+
+    // Set the attributes for the link element
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = '../../css/dynamic_users.css'; 
+
+    // Append the link element to the <head> section of the document
+    document.head.appendChild(link);
+}
 /*
 function fetchUsers() {
     // Make AJAX request to fetch users data
@@ -24,6 +36,7 @@ function fetchUsers() {
     .catch(error => console.error('Error fetching users:', error));
 }*/
 function fetchUsers() {
+    linkCSS();
     // Make AJAX request to fetch users data
     // Replace the URL with your actual endpoint for fetching users
     fetch('../../php/get_users.php')
@@ -36,23 +49,43 @@ function fetchUsers() {
         // Create table header
         const headerRow = document.createElement('tr');
         const usernameHeader = document.createElement('th');
+        const surnameHeader = document.createElement('th');
         usernameHeader.textContent = 'name';
+        surnameHeader.textContent ='family name';
         const emailHeader = document.createElement('th');
         emailHeader.textContent = 'email';
+        const actionHeader = document.createElement('th');
+        actionHeader.textContent = 'Actions';
         headerRow.appendChild(usernameHeader);
+        headerRow.appendChild(surnameHeader);
         headerRow.appendChild(emailHeader);
+        headerRow.appendChild(actionHeader);
         userTable.appendChild(headerRow);
 
         // Populate table with user data
         users.forEach(user => {
             const row = document.createElement('tr');
             const usernameCell = document.createElement('td');
-            usernameCell.textContent = user.username;
+            usernameCell.textContent = user.name;
+            const surnameCell = document.createElement('td');
+            surnameCell.textContent = user.surname;
             const emailCell = document.createElement('td');
             emailCell.textContent = user.email;
             row.appendChild(usernameCell);
+            row.appendChild(surnameCell);
             row.appendChild(emailCell);
-            userTable.appendChild(row);
+            const actionCell = document.createElement('td');
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = 'Delete';
+            deleteButton.addEventListener('click', () => {
+                // Handle delete action here, for example, you can call a function to delete the user
+                deleteUser(user.id); // Assuming deleteUser function exists
+                // Remove the row from the table after deleting the user
+                row.remove();
+            });
+            actionCell.appendChild(deleteButton); // Append the delete button to the action cell
+            row.appendChild(actionCell); // Append the action cell to the row
+            userTable.appendChild(row); // Append the row to the table
         });
 
         // Append table to user grid container
