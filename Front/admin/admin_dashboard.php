@@ -21,6 +21,6 @@
     </div>
 </div>
 
-<script src="admin_dashboard.js"></script>
+<script src="../../js/admin_dashboard.js"></script>
 </body>
 </html>
