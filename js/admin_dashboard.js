@@ -55,7 +55,7 @@ function fetchUsers() {
 
                 userTable.appendChild(headerRow);
 
-// Create table rows for each user
+               // Create table rows for each user
         users.forEach(user => {
             const row = document.createElement('tr');
             
@@ -82,11 +82,29 @@ function fetchUsers() {
             actionCell.appendChild(deleteButton); // Append the delete button to the action cell
             row.appendChild(actionCell); // Append the action cell to the row
             deleteButton.addEventListener('click', () => {
-                // Handle delete action here, for example, you can call a function to delete the user
+                
                 const userId = row.querySelector('td:first-child').textContent;
-                deleteUser(userId); 
-                // Assuming deleteUser function exists
-                // Remove the row from the table after deleting the user
+    
+    // Send an AJAX request to delete the user
+                fetch('delete_user.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ user_id: userId }),
+                })
+                .then(response => {
+                    if (response.ok) {
+                        // If deletion is successful, remove the row from the table
+                        row.remove();
+                    } else {
+                        // If deletion fails, show an error message
+                        console.error('Error deleting user:', response.statusText);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error deleting user:', error);
+                });
                 row.remove();
             });
             userTable.appendChild(row);
