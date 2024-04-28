@@ -17,97 +17,156 @@ function linkCSS() {
     // Append the link element to the <head> section of the document
     document.head.appendChild(link);
 }
-/*
 function fetchUsers() {
-    // Make AJAX request to fetch users data
-    // Replace the URL with your actual endpoint for fetching users
+    
     fetch('../../php/get_users.php')
     .then(response => response.json())
     .then(users => {
-        const userGrid = document.getElementById('user-grid');
-        users.forEach(user => {
-            const gridItem = document.createElement('div');
-            gridItem.classList.add('grid-item');
-            gridItem.textContent = user.name;
-            // Adjust based on your user data
-            userGrid.appendChild(gridItem);
-        });
-    })
-    .catch(error => console.error('Error fetching users:', error));
-}*/
-function fetchUsers() {
-    linkCSS();
-    // Make AJAX request to fetch users data
-    // Replace the URL with your actual endpoint for fetching users
-    fetch('../../php/get_users.php')
-    .then(response => response.json())
-    .then(users => {
-        const userTable = document.createElement('table');
-        userTable.classList.add('user-table');
-        const userGrid = document.getElementById('user-grid');
+        linkCSS();
+                const userTable = document.getElementById('user-table');
+                userTable.classList.add('users-table');
 
-        // Create table header
-        const headerRow = document.createElement('tr');
-        const usernameHeader = document.createElement('th');
-        const surnameHeader = document.createElement('th');
-        usernameHeader.textContent = 'name';
-        surnameHeader.textContent ='family name';
-        const emailHeader = document.createElement('th');
-        emailHeader.textContent = 'email';
-        const actionHeader = document.createElement('th');
-        actionHeader.textContent = 'Actions';
-        headerRow.appendChild(usernameHeader);
-        headerRow.appendChild(surnameHeader);
-        headerRow.appendChild(emailHeader);
-        headerRow.appendChild(actionHeader);
-        userTable.appendChild(headerRow);
+                // Clear existing user table content
+                userTable.innerHTML = '';
 
-        // Populate table with user data
+                // Create table header row
+                const headerRow = document.createElement('tr');
+
+                const headerCell0 = document.createElement('th');
+                headerCell0.textContent = 'ID'; 
+                headerRow.appendChild(headerCell0);
+
+                const headerCell1 = document.createElement('th');
+                headerCell1.textContent = 'Name'; 
+                headerRow.appendChild(headerCell1);
+
+                const headerCell2 = document.createElement('th');
+                headerCell2.textContent = 'Family name'; 
+                headerRow.appendChild(headerCell2);
+
+                const headerCell3 = document.createElement('th');
+                headerCell3.textContent = 'Email'; 
+                headerRow.appendChild(headerCell3);
+
+                const headerCell4 = document.createElement('th');
+                headerCell4.textContent = 'Actions'; 
+                headerRow.appendChild(headerCell4);
+                // Add additional header cells if needed
+
+                userTable.appendChild(headerRow);
+
+// Create table rows for each user
         users.forEach(user => {
             const row = document.createElement('tr');
-            const usernameCell = document.createElement('td');
-            usernameCell.textContent = user.name;
-            const surnameCell = document.createElement('td');
-            surnameCell.textContent = user.surname;
-            const emailCell = document.createElement('td');
-            emailCell.textContent = user.email;
-            row.appendChild(usernameCell);
-            row.appendChild(surnameCell);
-            row.appendChild(emailCell);
+            
+            const cell0 = document.createElement('td');
+            cell0.textContent = user.id;
+            row.appendChild(cell0);
+
+            const cell1 = document.createElement('td');
+            cell1.textContent = user.name;
+            row.appendChild(cell1);
+
+            const cell2 = document.createElement('td');
+            cell2.textContent = user.surname;
+            row.appendChild(cell2);
+
+            const cell3 = document.createElement('td');
+            cell3.textContent = user.email;
+            row.appendChild(cell3);
+
             const actionCell = document.createElement('td');
             const deleteButton = document.createElement('button');
-            deleteButton.textContent = 'Delete';
+            deleteButton.textContent = 'Delete user';
+            // Add additional cells for other user data if needed
+            actionCell.appendChild(deleteButton); // Append the delete button to the action cell
+            row.appendChild(actionCell); // Append the action cell to the row
             deleteButton.addEventListener('click', () => {
                 // Handle delete action here, for example, you can call a function to delete the user
-                deleteUser(user.id); // Assuming deleteUser function exists
+                const userId = row.querySelector('td:first-child').textContent;
+                deleteUser(userId); 
+                // Assuming deleteUser function exists
                 // Remove the row from the table after deleting the user
                 row.remove();
             });
-            actionCell.appendChild(deleteButton); // Append the delete button to the action cell
-            row.appendChild(actionCell); // Append the action cell to the row
-            userTable.appendChild(row); // Append the row to the table
+            userTable.appendChild(row);
         });
-
-        // Append table to user grid container
-        userGrid.appendChild(userTable);
-    })
-    .catch(error => console.error('Error fetching users:', error));
+        })
+        .catch(error => console.error('Error fetching users:', error));
 }
-
-
 function fetchCourses() {
+    linkCSS(); // Assuming this function is defined elsewhere
     // Make AJAX request to fetch courses data
     // Replace the URL with your actual endpoint for fetching courses
-    fetch('get_courses.php')
+    fetch('../../php/get_courses.php')
     .then(response => response.json())
     .then(courses => {
-        const courseGrid = document.getElementById('course-grid');
+        const courseTable = document.getElementById('course-table');
+        courseTable.classList.add('courses-table'); 
+        
+        // Clear existing table content
+        courseTable.innerHTML = '';
+
+        // Create table header row
+        const headerRow = document.createElement('tr');
+
+        const headerCell0 = document.createElement('th');
+        headerCell0.textContent = 'ID';
+        headerRow.appendChild(headerCell0);
+
+        const headerCell1 = document.createElement('th');
+        headerCell1.textContent = 'Course Name';
+        headerRow.appendChild(headerCell1);
+
+        const headerCell2 = document.createElement('th');
+        headerCell2.textContent = 'Author';
+        headerRow.appendChild(headerCell2);
+
+        const headerCell3 = document.createElement('th');
+        headerCell3.textContent = 'Date';
+        headerRow.appendChild(headerCell3);
+
+        const headerCell4 = document.createElement('th');
+        headerCell4.textContent = 'Actions'; 
+        headerRow.appendChild(headerCell4);
+
+        courseTable.appendChild(headerRow);
+
+        // Create table rows for each course
         courses.forEach(course => {
-            const gridItem = document.createElement('div');
-            gridItem.classList.add('grid-item');
-            gridItem.textContent = course.course_name; // Adjust based on your course data
-            courseGrid.appendChild(gridItem);
+            const row = document.createElement('tr');
+
+            const cell0 = document.createElement('td');
+            cell0.textContent = course.id; // Use course.id instead of courses.id
+            row.appendChild(cell0);
+            
+            const cell1 = document.createElement('td');
+            cell1.textContent = course.name; // Use course.name instead of courses.name
+            row.appendChild(cell1);
+
+            const cell2 = document.createElement('td');
+            cell2.textContent = course.author; // Use course.author instead of courses.author
+            row.appendChild(cell2);
+
+            const cell3 = document.createElement('td');
+            cell3.textContent = course.date; // Use course.date instead of courses.date
+            row.appendChild(cell3);
+            
+            const actionCell = document.createElement('td');
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = 'Delete'; // Update button text
+            actionCell.appendChild(deleteButton);
+            row.appendChild(actionCell);
+            deleteButton.addEventListener('click', () => {
+                // Handle delete action here
+                const courseId = course.id; // Use course.id instead of row.querySelector('td:first-child').textContent
+                deleteUser(courseId); // Assuming deleteUser function exists
+                row.remove();
+            });
+
+            courseTable.appendChild(row);
         });
     })
     .catch(error => console.error('Error fetching courses:', error));
 }
+
