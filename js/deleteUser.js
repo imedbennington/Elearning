@@ -1,11 +1,11 @@
 document.addEventListener('DOMContentLoaded', function() {
-    alert('clicked');
+
     var deleteButtons = document.querySelectorAll('.delete-btn');
 
     deleteButtons.forEach(function(button) {
         button.addEventListener('click', function() {
             var userId = this.getAttribute('data-user-id');
-
+            alert('clicked');
             // AJAX request to the PHP file
             var xhr = new XMLHttpRequest();
             xhr.open('POST', '../../php/deleteUser2.php', true);

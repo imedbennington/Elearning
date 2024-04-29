@@ -67,5 +67,6 @@
         echo '<p>No users found.</p>';
     }
     ?>
+<script src="../../js/deleteUser.js"></script>
 </body>
 </html>
