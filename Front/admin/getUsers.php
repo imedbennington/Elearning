@@ -53,8 +53,13 @@
         echo '<tbody>';
         // Loop through each user and display their information in a table row
         foreach ($users as $user) {
-            echo '<tr><td>' . $user['name'] . '</td><td>' . $user['email'] . '</td> <td><button>Delete</button></td></tr>';
+            echo '<tr id="user_' . $user['id'] . '">';
+            echo '<td>' . $user['name'] . '</td>';
+            echo '<td>' . $user['email'] . '</td>';
+            echo '<td><button class="delete-btn" data-user-id="' . $user['id'] . '">Delete</button></td>';
+            echo '</tr>';
         }
+
         echo '</tbody>';
         echo '</table>';
     } else {

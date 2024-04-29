@@ -5,6 +5,33 @@ document.addEventListener('DOMContentLoaded', function() {
     // Fetch courses from the server and populate course grid
     fetchCourses();
 });
+
+function handleDeleteButtonClick(userId) {
+    // Confirm that user ID is correctly received
+    console.log('Deleting user with ID:', userId);
+    alert(userId);
+    // Send a DELETE request to your PHP endpoint
+    fetch('../../php/deleteUser.php', {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ id: userId }) // Send user ID in the request body
+    })
+        .then(response => {
+            if (response.ok) {
+                console.log('User deleted successfully.');
+                // Optionally, you can update the UI to remove the deleted row
+                fetchUsers(); // Refresh user table after deletion
+            } else {
+                console.error('Error deleting user:', response.statusText);
+            }
+        })
+        .catch(error => {
+            console.error('Error deleting user:', error.message);
+        });
+}
+
 function linkCSS() {
     // Create a link element
     var link = document.createElement('link');
@@ -18,97 +45,73 @@ function linkCSS() {
     document.head.appendChild(link);
 }
 function fetchUsers() {
-    
     fetch('../../php/get_users.php')
-    .then(response => response.json())
-    .then(users => {
-        linkCSS();
-                const userTable = document.getElementById('user-table');
-                userTable.classList.add('users-table');
+        .then(response => response.json())
+        .then(users => {
+            linkCSS();
+            const userTable = document.getElementById('user-table');
+            userTable.classList.add('users-table');
 
-                // Clear existing user table content
-                userTable.innerHTML = '';
+            // Clear existing user table content
+            userTable.innerHTML = '';
 
-                // Create table header row
-                const headerRow = document.createElement('tr');
+            // Create table header row
+            const headerRow = document.createElement('tr');
 
-                const headerCell0 = document.createElement('th');
-                headerCell0.textContent = 'ID'; 
-                headerRow.appendChild(headerCell0);
+            const headerCell0 = document.createElement('th');
+            headerCell0.textContent = 'ID';
+            headerRow.appendChild(headerCell0);
 
-                const headerCell1 = document.createElement('th');
-                headerCell1.textContent = 'Name'; 
-                headerRow.appendChild(headerCell1);
+            const headerCell1 = document.createElement('th');
+            headerCell1.textContent = 'Name';
+            headerRow.appendChild(headerCell1);
 
-                const headerCell2 = document.createElement('th');
-                headerCell2.textContent = 'Family name'; 
-                headerRow.appendChild(headerCell2);
+            const headerCell2 = document.createElement('th');
+            headerCell2.textContent = 'Family name';
+            headerRow.appendChild(headerCell2);
 
-                const headerCell3 = document.createElement('th');
-                headerCell3.textContent = 'Email'; 
-                headerRow.appendChild(headerCell3);
+            const headerCell3 = document.createElement('th');
+            headerCell3.textContent = 'Email';
+            headerRow.appendChild(headerCell3);
 
-                const headerCell4 = document.createElement('th');
-                headerCell4.textContent = 'Actions'; 
-                headerRow.appendChild(headerCell4);
-                // Add additional header cells if needed
+            const headerCell4 = document.createElement('th');
+            headerCell4.textContent = 'Actions';
+            headerRow.appendChild(headerCell4);
 
-                userTable.appendChild(headerRow);
+            userTable.appendChild(headerRow);
 
-               // Create table rows for each user
-        users.forEach(user => {
-            const row = document.createElement('tr');
-            
-            const cell0 = document.createElement('td');
-            cell0.textContent = user.id;
-            row.appendChild(cell0);
+            // Create table rows for each user
+            users.forEach(user => {
+                const row = document.createElement('tr');
 
-            const cell1 = document.createElement('td');
-            cell1.textContent = user.name;
-            row.appendChild(cell1);
+                const cell0 = document.createElement('td');
+                cell0.textContent = user.id;
+                row.appendChild(cell0);
 
-            const cell2 = document.createElement('td');
-            cell2.textContent = user.surname;
-            row.appendChild(cell2);
+                const cell1 = document.createElement('td');
+                cell1.textContent = user.name;
+                row.appendChild(cell1);
 
-            const cell3 = document.createElement('td');
-            cell3.textContent = user.email;
-            row.appendChild(cell3);
+                const cell2 = document.createElement('td');
+                cell2.textContent = user.surname;
+                row.appendChild(cell2);
 
-            const actionCell = document.createElement('td');
-            const deleteButton = document.createElement('button');
-            deleteButton.textContent = 'Delete user';
-            // Add additional cells for other user data if needed
-            actionCell.appendChild(deleteButton); // Append the delete button to the action cell
-            row.appendChild(actionCell); // Append the action cell to the row
-            deleteButton.addEventListener('click', () => {
-                
-                const userId = row.querySelector('td:first-child').textContent;
-    
-    // Send an AJAX request to delete the user
-                fetch('delete_user.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ user_id: userId }),
-                })
-                .then(response => {
-                    if (response.ok) {
-                        // If deletion is successful, remove the row from the table
-                        row.remove();
-                    } else {
-                        // If deletion fails, show an error message
-                        console.error('Error deleting user:', response.statusText);
-                    }
-                })
-                .catch(error => {
-                    console.error('Error deleting user:', error);
+                const cell3 = document.createElement('td');
+                cell3.textContent = user.email;
+                row.appendChild(cell3);
+
+                const actionCell = document.createElement('td');
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Delete user';
+
+                actionCell.appendChild(deleteButton);
+                row.appendChild(actionCell);
+                deleteButton.addEventListener('click', () => {
+                    handleDeleteButtonClick(user.id); // Pass user ID to the function
                 });
-                row.remove();
+
+                userTable.appendChild(row);
             });
-            userTable.appendChild(row);
-        });
         })
         .catch(error => console.error('Error fetching users:', error));
 }
