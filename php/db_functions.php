@@ -16,4 +16,28 @@ function db_connect() {
         echo "". $e->getMessage();
     }
 }
+
+
+// Function to save token and email in the database
+// Function to save token and email in the database
+function saveTokenInDatabase($conn, $token, $email) {
+    // Prepare the SQL statement with named placeholders
+    $stmt = $conn->prepare("INSERT INTO token (tkn, mail) VALUES (:token, :email)");
+
+    // Bind values to named placeholders
+    $stmt->bindParam(':token', $token, PDO::PARAM_STR);
+    $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+
+    // Execute the statement
+    if ($stmt->execute()) {
+        // Token saved successfully
+        return true;
+    } else {
+        // Error occurred while saving token
+        return false;
+    }
+}
+
+
+
 ?>
