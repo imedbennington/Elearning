@@ -112,7 +112,7 @@ $conn = null;
                     <button type="button" onclick="window.location.href='registration.php'" class="btn btn-primary btn-lg btn-block" style="width: 100%; margin: 10px;">
                       Create account
                   </button>
-                         <a href="registration.php"> create account </a>            
+                         <a href="reset_pass.html"> create account </a>
                 </div>
                 <div class="divider d-flex align-items-center my-4">
                   <p class="text-center fw-bold mx-3 mb-0 text-muted">OR continue with </p>
