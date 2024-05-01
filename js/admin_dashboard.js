@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function handleDeleteButtonClick(userId) {
     // Confirm that user ID is correctly received
-    alert('shitt');
     alert('Deleting user with ID: ' + userId); // Log the user ID
 
     // Send a POST request to your PHP endpoint
@@ -39,10 +38,6 @@ function handleDeleteButtonClick(userId) {
 
         });
 }
-
-
-
-
 function linkCSS() {
     // Create a link element
     var link = document.createElement('link');
@@ -50,7 +45,7 @@ function linkCSS() {
     // Set the attributes for the link element
     link.rel = 'stylesheet';
     link.type = 'text/css';
-    link.href = '../../css/dynamic_users.css'; 
+    link.href = '/Projects/Elearning/css/styles_dynamic_users.css';
 
     // Append the link element to the <head> section of the document
     document.head.appendChild(link);
@@ -140,9 +135,8 @@ function fetchUsers() {
 }
 
 function fetchCourses() {
-    linkCSS(); // Assuming this function is defined elsewhere
+    linkCSS();
     // Make AJAX request to fetch courses data
-    // Replace the URL with your actual endpoint for fetching courses
     fetch('../../php/get_courses.php')
     .then(response => response.json())
     .then(courses => {
