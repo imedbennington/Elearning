@@ -8,29 +8,40 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function handleDeleteButtonClick(userId) {
     // Confirm that user ID is correctly received
-    console.log('Deleting user with ID:', userId);
-    alert(userId);
-    // Send a DELETE request to your PHP endpoint
+    alert('shitt');
+    alert('Deleting user with ID: ' + userId); // Log the user ID
+
+    // Send a POST request to your PHP endpoint
     fetch('../../php/deleteUser.php', {
-        method: 'DELETE',
+        method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/x-www-form-urlencoded'
         },
-        body: JSON.stringify({ id: userId }) // Send user ID in the request body
+        body: 'id=' + encodeURIComponent(userId) // Send user ID in the request body
     })
         .then(response => {
             if (response.ok) {
-                console.log('User deleted successfully.');
-                // Optionally, you can update the UI to remove the deleted row
-                fetchUsers(); // Refresh user table after deletion
+                return response.text();
             } else {
-                console.error('Error deleting user:', response.statusText);
+                throw new Error('Error deleting user');
             }
         })
+        .then(data => {
+            // Handle successful deletion
+            alert(data); // Log response from PHP
+            alert('User deleted successfully.');
+            // Optionally, you can update the UI to remove the deleted row
+            fetchUsers(); // Refresh user table after deletion
+        })
         .catch(error => {
-            console.error('Error deleting user:', error.message);
+            // Handle errors
+            console.log('Error deleting user: ' + error.message);
+
         });
 }
+
+
+
 
 function linkCSS() {
     // Create a link element
@@ -103,18 +114,31 @@ function fetchUsers() {
                 const actionCell = document.createElement('td');
                 const deleteButton = document.createElement('button');
                 deleteButton.textContent = 'Delete user';
+                deleteButton.classList.add('delete-button'); // Add a class for styling
 
                 actionCell.appendChild(deleteButton);
                 row.appendChild(actionCell);
                 deleteButton.addEventListener('click', () => {
-                    handleDeleteButtonClick(user.id); // Pass user ID to the function
+                    // Fetch the user ID from the row
+                    const userId = user.id;
+                    // Ask for confirmation before deleting the user
+                    if (confirm('Are you sure you want to delete this user?')) {
+                        handleDeleteButtonClick(userId); // Pass user ID to the function
+                    }
                 });
 
                 userTable.appendChild(row);
             });
         })
-        .catch(error => console.error('Error fetching users:', error));
+        .catch(error => {
+            console.error('Error fetching users:', error);
+            // Display a user-friendly error message
+            const errorMessage = document.createElement('div');
+            errorMessage.textContent = 'Failed to fetch users. Please try again later.';
+            document.body.appendChild(errorMessage);
+        });
 }
+
 function fetchCourses() {
     linkCSS(); // Assuming this function is defined elsewhere
     // Make AJAX request to fetch courses data

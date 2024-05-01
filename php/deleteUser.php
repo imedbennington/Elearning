@@ -3,27 +3,22 @@
 include('db_functions.php');
 
 // Check if the request method is POST
-if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Retrieve the user ID from the request body
-    $json = file_get_contents('php://input');
-    $data = json_decode($json);
-
-    if(isset($data->id) && !empty($data->id)) {
-        // Get the user ID from the JSON payload
-        $userId = $data->id;
-
-        // Log the received user ID for debugging
-        $htmlOutput = "<div>Received user ID: $userId</div>";
-
+    if(isset($_POST['id']) && !empty($_POST['id'])) {
+        // Get the user ID from the POST data
+        $userId = $_POST['id'];
+        var_dump($userId);
+        $userIdHtml = "<div>User ID: $userId</div>";
         // Connect to the database
-        $conn = db_connect();
+        $pdo = new PDO("mysql:host=localhost;dbname=elearning", "root", "");
 
         // Prepare the SQL statement to delete the user
-        $sql = "DELETE FROM users WHERE id = ?";
-        $stmt = $conn->prepare($sql);
+        $sql = "DELETE FROM users WHERE id = :id";
+        $stmt = $pdo->prepare($sql);
 
         // Bind the user ID parameter
-        $stmt->bind_param("i", $userId);
+        $stmt->bindParam(':id', $userId, PDO::PARAM_INT);
 
         // Execute the statement
         if ($stmt->execute()) {
@@ -38,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
 
         // Close the database connection
         $stmt->close();
-        $conn->close();
+
     } else {
         // Send a bad request response if user ID is not provided
         http_response_code(400); // Bad Request
@@ -49,4 +44,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
     http_response_code(405); // Method Not Allowed
     echo json_encode(array('error' => 'Method Not Allowed'));
 }
+
 ?>
+<?php echo $userIdHtml; ?>
