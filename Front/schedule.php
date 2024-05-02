@@ -10,18 +10,18 @@
 
     <title>Schedule</title>
 </head>
-<body>
+<body><!--
     <header>
         <div class="logo img" style="height: 100px; width: 100px;">
         <img src="/2.png">
     </div>
     <div class="navbar">
         <a class="active" href="user_profile.html"><i class="fa fa-fw fa-home"></i> Home</a>
-        <a href="uploads.html"><i class="fa fa-fw fa-search"></i> Search</a>
+        <a href="uploads.php"><i class="fa fa-fw fa-search"></i> Search</a>
         <a href="#"><i class="fa fa-fw fa-envelope"></i> Contact</a>
         <a href="login.html" target="_blank"><i class="fa fa-fw fa-user"></i> Log out</a>
     </div>
-    </header>
+    </header>-->
         
         <section>
             

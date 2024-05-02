@@ -1,0 +1,12 @@
+.container-fluid {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Make the container take up the full viewport height */
+}
+.row {
+    flex-grow: 1; /* Allow the row to grow and take up remaining space */
+    overflow: auto; /* Enable scrolling if content overflows */
+}
+.col {
+    height: 100%; /* Make each column take up the full height of its parent (the row) */
+}
