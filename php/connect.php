@@ -63,7 +63,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             ini_set('display_errors', 1);
 
                             // Redirect user to welcome page
-                            header("Location: ../Front/addtask.html");
+                            header("Location: ../Front/addtask.php");
                             exit;
                         } else{
                             // Display an error message if password is not valid

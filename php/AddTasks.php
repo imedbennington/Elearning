@@ -10,9 +10,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Prepare SQL statement for insertion
     $sql = "INSERT INTO tasks (description, date, userid, usermail) VALUES (?, ?, ?, ?)";
-
     // Prepare and bind parameters
     $stmt = $conn->prepare($sql);
+
     $stmt->bind_param("ssis", $task, $date, $userId, $userName);
 
     // Execute the statement

@@ -47,9 +47,10 @@
     <form id="addTaskForm">
         <input type="text" id="taskInput" placeholder="Enter task description">
         <input type="hidden" id="selectedDate">
-        <input type="hidden" id="userId" value="<?php echo $userId; ?>"> <!-- Add this line -->
-        <input type="hidden" id="usermail" value="<?php echo $userName; ?>"> <!-- Add this line -->
-        <button id="connectionIndicator" style="background-color: red;"></button> <!-- Add this line -->
+        <!--
+        <input type="hidden" id="userId" value="</*?php echo //$userId; */?>">
+        <input type="hidden" id="usermail" value="</*?php echo $userName; */?>">
+        <button id="connectionIndicator" style="background-color: red;"></button> -->
         <input type="submit" value="Add Task">
     </form>
 </div>
@@ -57,6 +58,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
@@ -102,6 +104,6 @@
         });
     });
 </script>
-<script src="../js/AddTasks.js"></script>
+<!--<script src="../js/AddTasks.js"></script>-->
 </body>
 </html>

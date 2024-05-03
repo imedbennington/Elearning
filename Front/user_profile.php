@@ -38,10 +38,15 @@
             padding-right: 20px; /* Add padding to prevent overlap */
         }
         #connectionIndicator {
-            background-color: red; /* Default color */
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
         }
         .connected #connectionIndicator {
-            background-color: green; /* Color when user is connected */
+            background-color: #04f604;
+        }
+        #connectionIndicator.red {
+            background-color: red;
         }
     </style>
 </head>
@@ -76,7 +81,8 @@
 
         <p>Your User ID is: <?php echo $userId; ?></p>
         <p>Your email is: <?php echo $userEmail; ?></p>
-        <button id="connectionIndicator"></button> <!-- Moved the button here -->
+        <!-- Moved the button here -->
+        <button id="connectionIndicator" class="red"></button>
     </div>
 </header>
 <section class="container-fluid">
@@ -100,10 +106,10 @@
                                 <a href="uploads.php" class="nav-link px-0"> <span class="d-none d-sm-inline">My courses</span> <i class="fa-solid fa-book"></i></a>
                             </li>
                             <li>
-                                <a href="schedule.php" class="nav-link px-0"> <span class="d-none d-sm-inline">Schedule</span> <i class="fa-regular fa-calendar-days"></i></a>
+                                <a href="Myhomeworks.php" class="nav-link px-0"> <span class="d-none d-sm-inline">My homeworks</span> <i class="fa-solid fa-book"></i></a>
                             </li>
                             <li>
-                                <a href="Myhomeworks.php" class="nav-link px-0"> <span class="d-none d-sm-inline">My homeworks</span> <i class="fa-solid fa-book"></i></a>
+                                <a href="addtask.php" class="nav-link px-0"> <span class="d-none d-sm-inline">My tasks</span> <i class="fa-solid fa-book"></i></a>
                             </li>
                         </ul>
                     </li>
@@ -119,6 +125,44 @@
 <!-- Hidden fields to store user ID and email -->
 <input type="hidden" id="userId" value="<?php echo isset($userId) ? $userId : ''; ?>">
 <input type="hidden" id="userEmail" value="<?php echo isset($userName) ? $userName : ''; ?>">
+
+<script>
+    function checkConnectionStatus(callback) {
+        alert("Checking connection status...");
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                alert("XHR request done. Status: " + xhr.status);
+                if (xhr.status === 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    alert("Response from server: " + JSON.stringify(response));
+                    callback(response.connected); // Pass the connection status to the callback function
+                } else {
+                    console.error('Error checking connection status:', xhr.status);
+                    callback(false); // Pass false to the callback indicating connection status couldn't be determined
+                }
+            }
+        };
+        xhr.open('GET', '../php/check_connection.php', true); // Update the URL to match your endpoint
+        xhr.send();
+    }
+
+    function updateConnectionIndicator() {
+        var connectionIndicator = document.getElementById("connectionIndicator");
+        checkConnectionStatus(function(isConnected) {
+            if (isConnected) {
+                connectionIndicator.classList.add("connected");
+                connectionIndicator.classList.remove("red");
+            } else {
+                connectionIndicator.classList.remove("connected");
+                connectionIndicator.classList.add("red");
+            }
+        });
+    }
+
+    updateConnectionIndicator();
+
+</script>
 
 <script src="../js/loadContents.js"></script>
 </body>
