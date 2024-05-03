@@ -37,6 +37,12 @@
             width: calc(100% - 20px); /* Adjust for scrollbar */
             padding-right: 20px; /* Add padding to prevent overlap */
         }
+        #connectionIndicator {
+            background-color: red; /* Default color */
+        }
+        .connected #connectionIndicator {
+            background-color: green; /* Color when user is connected */
+        }
     </style>
 </head>
 <body style="background-color: rgba(238,238,255,255);">
@@ -48,7 +54,29 @@
         <a class="active" href="#"><i class="fa fa-fw fa-home"></i> Home</a>
         <a href="uploads.php"><i class="fa fa-fw fa-search"></i> Search</a>
         <a href="contact.html"><i class="fa fa-fw fa-envelope"></i> Contact</a>
-        <a href="home.html" target="_blank"><i class="fa fa-fw fa-user"></i> Log out</a>
+        <?php
+        // Start session
+        session_start();
+
+        // Include database connection
+        include '../php/db_functions.php'; // Replace 'database_connection.php' with your actual database connection file
+        $conn = db_connect();
+
+        // Check if the user is not logged in
+        if (!isset($_SESSION['id']) || !isset($_SESSION['email'])) {
+            // Redirect to login page if user is not logged in
+            header("Location: login.php");
+            exit;
+        }
+
+        // Retrieve user ID and email from session variables
+        $userId = $_SESSION['id'];
+        $userEmail = $_SESSION['email'];
+        ?>
+
+        <p>Your User ID is: <?php echo $userId; ?></p>
+        <p>Your email is: <?php echo $userEmail; ?></p>
+        <button id="connectionIndicator"></button> <!-- Moved the button here -->
     </div>
 </header>
 <section class="container-fluid">
@@ -87,6 +115,10 @@
         </div>
     </div>
 </section>
+
+<!-- Hidden fields to store user ID and email -->
+<input type="hidden" id="userId" value="<?php echo isset($userId) ? $userId : ''; ?>">
+<input type="hidden" id="userEmail" value="<?php echo isset($userName) ? $userName : ''; ?>">
 
 <script src="../js/loadContents.js"></script>
 </body>

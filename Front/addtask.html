@@ -3,50 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="Styles.css" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+WyOckneL+O5pa0e5K/J7Z9o5hpv6Y1bp" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css" rel="stylesheet">
+    <title>Schedule</title>
+    <style>
+        /* Add your custom styles here */
+        #calendar {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        #taskForm {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        #taskForm input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        #taskForm input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #taskForm input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
+<div id="calendar"></div>
 
-    <header>
-        <div class="logo img" style="height: 100px; width: 100px;">
-        <img src="/2.png">
-    </div>
-    <div class="navbar">
-        <a class="active" href="user_profile.html"><i class="fa fa-fw fa-home"></i> Home</a>
-        <a href="uploads.php"><i class="fa fa-fw fa-search"></i> Search</a>
-        <a href="#"><i class="fa fa-fw fa-envelope"></i> Contact</a>
-        <a href="login.html" target="_blank"><i class="fa fa-fw fa-user"></i> Log out</a>
-    </div>
-    </header> 
-    
+<div id="taskForm">
+    <form id="addTaskForm">
+        <input type="text" id="taskInput" placeholder="Enter task description">
+        <input type="hidden" id="selectedDate">
+        <input type="hidden" id="userId" value="<?php echo $userId; ?>"> <!-- Add this line -->
+        <input type="hidden" id="usermail" value="<?php echo $userName; ?>"> <!-- Add this line -->
+        <button id="connectionIndicator" style="background-color: red;"></button> <!-- Add this line -->
+        <input type="submit" value="Add Task">
+    </form>
+</div>
 
-    <section>
-        <form id="addTaskForm">
-            <label for="taskName">Task Name:</label>
-            <input type="text" id="taskName" name="taskName" required>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
 
-            <label for="taskTime">Task Time:</label>
-            <input type="time" id="taskTime" name="taskTime" required>
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,timeGridDay'
+            },
+            editable: true, // Enable drag and drop
+            selectable: true, // Allow date selection
+            select: function(info) {
+                // Display task form
+                document.getElementById('taskForm').style.display = 'block';
+                // Store selected date
+                document.getElementById('selectedDate').value = info.startStr;
+            },
+            events: [
+                // Example events can be added here
+                // { title: 'Meeting', start: '2024-05-03T10:00:00', end: '2024-05-03T12:00:00' },
+            ]
+        });
 
-            <label for="taskDay">Task Day:</label>
-            <select id="taskDay" name="taskDay" required>
-                <option value="Monday">Monday</option>
-                <option value="Tuesday">Tuesday</option>
+        calendar.render();
 
-            </select>
-
-            <div class="button-container">
-                <button type="submit">Add Task</button>
-                <button type="button">Cancel</button>
-            </div>
-        </form>
-    </section>
-
-
+        // Handle form submission
+        $('#addTaskForm').submit(function(event) {
+            event.preventDefault();
+            var task = $('#taskInput').val();
+            var date = $('#selectedDate').val();
+            // Add the task to the calendar
+            calendar.addEvent({
+                title: task,
+                start: date,
+                allDay: true // Assuming tasks are for the whole day
+            });
+            // Hide the task form
+            $('#taskForm').show();
+            // Reset input field
+            $('#taskInput').val('');
+        });
+    });
+</script>
+<script src="../js/AddTasks.js"></script>
 </body>
 </html>
