@@ -19,3 +19,14 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+// Function to load the schedule page into the userprofile element
+function loadSchedulePage() {
+    // Get the schedule page content
+    const scheduleContent = document.getElementById('schedulePage').innerHTML;
+    // Set the schedule page content to the userprofile element
+    document.getElementById('userprofile').innerHTML = scheduleContent;
+}
+
+// Call the function to load the schedule page
+loadSchedulePage();

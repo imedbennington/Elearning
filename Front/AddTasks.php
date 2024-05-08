@@ -1,77 +1,114 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Task Calendar</title>
-    <style>
-        .calendar {
-            display: flex;
-            flex-wrap: wrap;
-        }
-        .day {
-            width: calc(100% / 7);
-            border: 1px solid #ccc;
-            padding: 10px;
-        }
-    </style>
-</head>
-<body>
-<div class="calendar" id="calendar"></div>
+<!-- Encapsulate the entire content within a container -->
+<div id="schedulePage">
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css" rel="stylesheet">
+        <title>Schedule</title>
+        <style>
+            /* Add your custom styles here */
+            #calendar {
+                max-width: 900px;
+                margin: 0 auto;
+            }
+            #taskForm {
+                display: none;
+                margin-top: 20px;
+                padding: 20px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                background-color: #f9f9f9;
+            }
+            #taskForm input[type="text"] {
+                width: 100%;
+                padding: 10px;
+                margin-bottom: 10px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                box-sizing: border-box;
+            }
+            #taskForm input[type="submit"] {
+                background-color: #4CAF50;
+                color: white;
+                padding: 10px 20px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+            #taskForm input[type="submit"]:hover {
+                background-color: #45a049;
+            }
+        </style>
+    </head>
+    <body>
+    <div id="calendar"></div>
 
-<script>
-    // Function to create a calendar
-    function createCalendar(year, month) {
-        const daysInMonth = new Date(year, month + 1, 0).getDate();
-        const firstDayIndex = new Date(year, month, 1).getDay();
-        const lastDayIndex = new Date(year, month, daysInMonth).getDay();
-        const calendar = document.getElementById("calendar");
-        const months = [
-            "January",
-            "February",
-            "March",
-            "April",
-            "May",
-            "June",
-            "July",
-            "August",
-            "September",
-            "October",
-            "November",
-            "December"
-        ];
-        calendar.innerHTML = '';
-        for (let i = 0; i < firstDayIndex; i++) {
-            calendar.innerHTML += `<div class="day"></div>`;
-        }
-        for (let i = 1; i <= daysInMonth; i++) {
-            calendar.innerHTML += `<div class="day" id="day${i}">${i}</div>`;
-        }
-        for (let i = 0; i < 6 - lastDayIndex; i++) {
-            calendar.innerHTML += `<div class="day"></div>`;
-        }
-        const monthName = months[month];
-        const yearMonth = document.createElement('h2');
-        yearMonth.textContent = `${monthName} ${year}`;
-        calendar.insertBefore(yearMonth, calendar.firstChild);
-    }
+    <div id="taskForm">
+        <form id="addTaskForm">
+            <input type="text" id="taskInput" placeholder="Enter task description">
+            <input type="text" id="selectedDate">
+            <!--
+            <input type="hidden" id="userId" value="</*?php echo //$userId; */?>">
+            <input type="hidden" id="usermail" value="</*?php echo $userName; */?>">
+            <button id="connectionIndicator" style="background-color: red;"></button> -->
+            <input type="submit" value="Add Task">
+        </form>
+    </div>
 
-    // Add a task to a specific date
-    function addTask(date, task) {
-        const day = document.getElementById(`day${date}`);
-        if (day) {
-            const taskElement = document.createElement('div');
-            taskElement.textContent = task;
-            day.appendChild(taskElement);
-        } else {
-            console.error(`Day ${date} does not exist in the calendar.`);
-        }
-    }
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
+    <!--
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
 
-    // Usage example
-    createCalendar(2024, 4); // May 2024
-    addTask(5, "Meeting with client");
-    addTask(15, "Submit project report");
-</script>
-</body>
-</html>
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                },
+                editable: true, // Enable drag and drop
+                selectable: true, // Allow date selection
+                select: function(info) {
+                    // Display task form
+                    document.getElementById('taskForm').style.display = 'block';
+                    // Store selected date
+                    document.getElementById('selectedDate').value = info.startStr;
+                },
+                events: [
+                    // Example events can be added here
+                    // { title: 'Meeting', start: '2024-05-03T10:00:00', end: '2024-05-03T12:00:00' },
+                ]
+            });
+
+            calendar.render();
+
+            // Handle form submission
+            $('#addTaskForm').submit(function(event) {
+                event.preventDefault();
+                var task = $('#taskInput').val();
+                var date = $('#selectedDate').val();
+                // Add the task to the calendar
+                calendar.addEvent({
+                    title: task,
+                    start: date,
+                    allDay: true // Assuming tasks are for the whole day
+                });
+                // Hide the task form
+                $('#taskForm').hide();
+                // Reset input field
+                $('#taskInput').val('');
+            });
+        });
+    </script>
+    -->
+    <script src="../js/AddTasks.js"></script>
+    <h3>text</h3>
+    </body>
+    </html>
+</div>

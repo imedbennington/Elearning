@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+/*document.addEventListener('DOMContentLoaded', function() {
     // Other code remains unchanged
     document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
@@ -69,5 +69,53 @@ document.addEventListener('DOMContentLoaded', function() {
         $(this).css('background-color', function(_, value) {
             return value === 'green' ? 'red' : 'green';
         });
+    });
+});
+*/
+
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay'
+        },
+        editable: true, // Enable drag and drop
+        selectable: true, // Allow date selection
+        select: function(info) {
+            // Display task form
+            document.getElementById('taskForm').style.display = 'block';
+            // Store selected date
+            document.getElementById('selectedDate').value = info.startStr;
+        },
+        events: [
+            // Example events can be added here
+            // { title: 'Meeting', start: '2024-05-03T10:00:00', end: '2024-05-03T12:00:00' },
+        ]
+    });
+
+    calendar.render();
+
+    // Handle form submission
+    $('#addTaskForm').submit(function(event) {
+        event.preventDefault();
+        var task = $('#taskInput').val();
+        var date = $('#selectedDate').val();
+        // Add the task to the calendar
+        calendar.addEvent({
+            title: task,
+            start: date,
+            allDay: true // Assuming tasks are for the whole day
+        });
+        // Hide the task form
+        $('#taskForm').hide();
+        // Reset input field
+        $('#taskInput').val('');
     });
 });

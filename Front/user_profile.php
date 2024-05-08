@@ -110,11 +110,11 @@
                             <li class="w-100">
                                 <a href="uploads.php" class="nav-link px-0"> <span class="d-none d-sm-inline">My courses</span> <i class="fa-solid fa-book"></i></a>
                             </li>
-                            <li>
+                            <li class="w-100">
                                 <a href="Myhomeworks.php" class="nav-link px-0"> <span class="d-none d-sm-inline">My homeworks</span> <i class="fa-solid fa-book"></i></a>
                             </li>
-                            <li>
-                                <a href="addtask.php" class="nav-link px-0"> <span class="d-none d-sm-inline">My tasks</span> <i class="fa-solid fa-book"></i></a>
+                            <li class="w-100">
+                                <a href="tasks.php" class="nav-link px-0"> <span class="d-none d-sm-inline">My tasks</span> <i class="fa-solid fa-book"></i></a>
                             </li>
                         </ul>
                     </li>
@@ -168,7 +168,6 @@
     updateConnectionIndicator();
 
 </script>
-
 <script src="../js/loadContents.js"></script>
 </body>
 </html>
