@@ -45,16 +45,17 @@ function linkCSS() {
     // Set the attributes for the link element
     link.rel = 'stylesheet';
     link.type = 'text/css';
-    link.href = '/Projects/Elearning/css/styles_dynamic_users.css';
+    link.href = '../css/dynamic_users.css';
 
     // Append the link element to the <head> section of the document
     document.head.appendChild(link);
 }
 function fetchUsers() {
+    linkCSS();
     fetch('../../php/get_users.php')
         .then(response => response.json())
         .then(users => {
-            linkCSS();
+
             const userTable = document.getElementById('user-table');
             userTable.classList.add('users-table');
 
@@ -166,7 +167,7 @@ function fetchCourses() {
         headerRow.appendChild(headerCell3);
 
         const headerCell4 = document.createElement('th');
-        headerCell4.textContent = 'Actions'; 
+        headerCell4.textContent = 'Actions';
         headerRow.appendChild(headerCell4);
 
         courseTable.appendChild(headerRow);
@@ -193,13 +194,15 @@ function fetchCourses() {
             
             const actionCell = document.createElement('td');
             const deleteButton = document.createElement('button');
-            deleteButton.textContent = 'Delete'; // Update button text
+            deleteButton.textContent = 'Delete';
+            deleteButton.classList.add('delete-button');
+            //deleteButton.style.backgroundColor = 'red';
             actionCell.appendChild(deleteButton);
             row.appendChild(actionCell);
             deleteButton.addEventListener('click', () => {
                 // Handle delete action here
-                const courseId = course.id; // Use course.id instead of row.querySelector('td:first-child').textContent
-                deleteUser(courseId); // Assuming deleteUser function exists
+                const courseId = course.id;
+                deleteUser(courseId);
                 row.remove();
             });
 
