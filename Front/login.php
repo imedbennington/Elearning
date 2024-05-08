@@ -108,7 +108,8 @@ $conn = null;
                 </div>
                 
                 <div>
-                    <button type="submit"  class="btn btn-primary btn-lg btn-block" style="width: 100%; margin: 10px;">Sign in</button>
+                    <!-- <button type="submit"  class="btn btn-primary btn-lg btn-block" style="width: 100%; margin: 10px;">Sign in</button> -->
+                    <input type="submit" value="Sign in" class="btn btn-primary btn-lg btn-block" style="width: 100%; margin: 10px;">
                     <button type="button" onclick="window.location.href='registration.php'" class="btn btn-primary btn-lg btn-block" style="width: 100%; margin: 10px;">
                       Create account
                   </button>

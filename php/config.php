@@ -7,6 +7,7 @@ class Config {
 
     // Initialize properties using a static method
     public static function initialize() {
+        echo 'hello';
         self::$smtpPassword = getenv('SMTP_PASSWORD');
     }
 }

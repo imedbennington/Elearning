@@ -4,10 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+WyOckneL+O5pa0e5K/J7Z9o5hpv6Y1bp" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+WyOckneL+O5pa0e5K/J7Z9o5hpv6Y1bp" crossorigin="anonymous">
+    -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <!-- Your custom CSS -->
     <link rel="stylesheet" type="text/css" href="/Projects/Elearning/css/Styles.css" />
+
+
     <!--<link rel="stylesheet" type="text/css" href="/Projects/Elearning/css/userProfile.css" />-->
     <style>
         body, html {
@@ -59,6 +63,7 @@
         <a class="active" href="#"><i class="fa fa-fw fa-home"></i> Home</a>
         <a href="uploads.php"><i class="fa fa-fw fa-search"></i> Search</a>
         <a href="contact.html"><i class="fa fa-fw fa-envelope"></i> Contact</a>
+        <a href="../php/logout.php"><i class="fa fa-fw fa-sign-out-alt"></i> Logout</a>
         <?php
         // Start session
         session_start();

@@ -45,20 +45,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $mail = new PHPMailer(true);
 
+        // var_dump($email->isSMTP());
+
         try {
-            $mail->isSMTP();
-            $mail->Host = $smtpHost;
-            $mail->SMTPAuth = true;
-            $mail->AuthType = 'LOGIN';
-            $mail->Username = $smtpUsername;
-            $mail->Password = $smtpPassword;
-            $mail->SMTPSecure = 'tls';
-            $mail->Port = $smtpPort;
+//            $mail->isSMTP();
+//            $mail->Host = $smtpHost;
+//            $mail->SMTPAuth = true;
+//            $mail->AuthType = 'LOGIN';
+//            $mail->Username = $smtpUsername;
+//            $mail->Password = $smtpPassword;
+//            $mail->SMTPSecure = 'tls';
+//            $mail->Port = $smtpPort;
 
-            $mail->setFrom('your_email@example.com', 'Your Name');
-            $mail->addAddress($to);
 
-            $mail->isHTML(false);
+//            $mail->setFrom('your_email@example.com', 'Your Name');
+//            $mail->addAddress($to);
+//
+//            $mail->isHTML(false);
+            $mail->AddReplyTo('name@yourdomain.com', 'First Last');
+            $mail->AddAddress('whoto@otherdomain.com', 'John Doe');
+            $mail->SetFrom('bouzidy.imed@gmail.com', 'First Last');
+            $mail->AddReplyTo('name@yourdomain.com', 'First Last');
             $mail->Subject = $subject;
             $mail->Body = $message;
 
