@@ -1,4 +1,17 @@
 document.addEventListener('DOMContentLoaded', function() {
+    function linkCSS() {
+        // Create a link element
+        var link = document.createElement('link');
+    
+        // Set the attributes for the link element
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = '../css/dynamic_users.css';
+    
+        // Append the link element to the <head> section of the document
+        document.head.appendChild(link);
+    }
+    linkCSS();
     // Fetch users from the server and populate user grid
     fetchUsers();
     
@@ -38,20 +51,20 @@ function handleDeleteButtonClick(userId) {
 
         });
 }
-function linkCSS() {
-    // Create a link element
-    var link = document.createElement('link');
+// function linkCSS() {
+//     // Create a link element
+//     var link = document.createElement('link');
 
-    // Set the attributes for the link element
-    link.rel = 'stylesheet';
-    link.type = 'text/css';
-    link.href = '../css/dynamic_users.css';
+//     // Set the attributes for the link element
+//     link.rel = 'stylesheet';
+//     link.type = 'text/css';
+//     link.href = '../css/dynamic_users.css';
 
-    // Append the link element to the <head> section of the document
-    document.head.appendChild(link);
-}
+//     // Append the link element to the <head> section of the document
+//     document.head.appendChild(link);
+// }
 function fetchUsers() {
-    linkCSS();
+    // linkCSS();
     fetch('../../php/get_users.php')
         .then(response => response.json())
         .then(users => {
@@ -136,7 +149,7 @@ function fetchUsers() {
 }
 
 function fetchCourses() {
-    linkCSS();
+    // linkCSS();
     // Make AJAX request to fetch courses data
     fetch('../../php/get_courses.php')
     .then(response => response.json())
